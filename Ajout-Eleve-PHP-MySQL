@@ -1,0 +1,36 @@
+<?php
+$servername = "172.23.48.1"; // Nom d'hôte du serveur MySQL
+$username = "root"; // Nom d'utilisateur de la base de données
+$password = "root"; // Mot de passe de la base de données26.0.2
+$dbname = "dbcantine"; // Nom de la base de données
+
+$mysqli = new mysqli($servername, $username, $password, $dbname); // Crée d'une nouvelle connexion MySQL
+if ($mysqli->connect_error) { // Vérification de la réussite de la connexion
+    die("Connection failed: " . $mysqli->connect_error); // Affiche un message d'erreur en cas d'échec
+}
+
+// Récupération des données du formulaire d'ajout d'élève
+$nom = $_POST['nom'];
+$prenom = $_POST['prenom'];
+$reservation = $_POST['reservation'];
+$classe = $_POST['classe'];
+
+// Traitement de la photo de l'élève
+$image_name = $nom . "_" . $prenom . ".jpg"; // Nom de fichier pour la photo de l'élève (basé sur le nom et le prénom)
+$image_tmp_name = $_FILES['image']['tmp_name']; // Emplacement temporaire du fichier de la photo de l'élève
+$image_folder = "image/"; // Dossier où seront stockées les photos
+move_uploaded_file($image_tmp_name, $image_folder . $image_name); // Déplacement de la photo de l'élève vers le dossier de stockage
+$chemin_photo = $image_folder . $image_name; // Chemin d'accès complet à la photo de l'élève
+
+// Requête SQL pour ajouter un nouvel élève à la base de données
+$sql = "INSERT INTO eleves (nom, prenom, reservation, classe, chemin_photo)
+VALUES ('$nom', '$prenom', '$reservation', '$classe', '$chemin_photo')";
+
+if ($mysqli->query($sql) === TRUE) { // Vérification de la réussite de l'insertion
+    echo "Nouvel enregistrement créé avec succès"; // Affichage d'un message de succès
+} else {
+    echo "Error: " . $sql . "<br>" . $mysqli->error; // Affichage d'un message d'erreur en cas d'échec de l'insertion
+}
+
+$mysqli->close(); // Fermeture de la connexion à la base de données
+?>

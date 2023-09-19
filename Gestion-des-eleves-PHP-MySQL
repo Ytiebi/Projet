@@ -1,0 +1,45 @@
+<?php
+$servername = "172.23.48.1"; // Nom d'hôte du serveur MySQL
+$username = "root"; // Nom d'utilisateur de la base de données
+$password = "root"; // Mot de passe de la base de données26.0.2
+$dbname = "dbcantine"; // Nom de la base de données
+
+$mysqli = new mysqli($servername, $username, $password, $dbname); // Crée d'une nouvelle connexion MySQL
+if ($mysqli->connect_error) { // Vérification de la réussite de la connexion
+    echo "Connection failed: " . $mysqli->connect_error; // Affiche un message d'erreur en cas d'échec
+    die(); // Arrêt de l'exécution du script
+}
+
+// Requête SQL pour récupérer les détails des élèves et les afficher dans un tableau
+$sql = "SELECT * FROM eleves ORDER BY nom";
+$result = $mysqli->query($sql); // Exécution de la requête SQL
+
+if (!$result) { // Vérification de la réussite de l'exécution de la requête
+    echo "Error executing query: (" . $mysqli->errno . ") " . $mysqli->error; // Affichage d'un message d'erreur en cas d'échec
+    die(); // Arrêt de l'exécution du script
+}
+
+// Affichage du titre du tableau des élèves
+echo '<h4 style="font-size: 30px;" class="text-center my-4">élèves Ajoutés</h4>';
+
+// Affichage du tableau des élèves
+echo '<table class="table table-striped">';
+echo '<thead><tr><th>Nom</th><th>Prénom</th><th>Réservation</th><th>Classe</th><th>Photo</th>></tr></thead>';
+echo '<tbody>';
+
+while ($row = $result->fetch_assoc()) { // Boucle pour parcourir les résultats de la requête
+    echo '<tr>';
+    echo '<td>' . $row['nom'] . '</td>'; // Affichage du nom de l'élève
+    echo '<td>' . $row['prenom'] . '</td>'; // Affichage du prénom de l'élève
+    echo '<td>' . ($row['reservation'] ? 'Oui' : 'Non') . '</td>'; // Affichage de l'état de la réservation de l'élève
+    echo '<td>' . $row['classe'] . '</td>'; // Affichage de la classe de l'élève
+    echo '<td><img src="' . $row['chemin_photo'] . '" alt="Photo de l\'élève" width="100"></td>'; // Affichage de la photo de l'élève
+    echo '<td><form action="delete.php" method="post"><input type="hidden" name="id" value="' . $row['id'] . '"><button type="submit" class="btn btn-danger">Supprimer</button></form></td>'; // Affichage d'un bouton pour supprimer l'élève
+    echo '</tr>';
+}
+
+echo '</tbody>';
+echo '</table>';
+
+$mysqli->close(); // Fermeture de la connexion à la base de données
+?>

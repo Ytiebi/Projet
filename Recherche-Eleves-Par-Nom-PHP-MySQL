@@ -1,0 +1,46 @@
+<?php
+$servername = "172.23.48.1"; // Nom d'hôte du serveur MySQL
+$username = "root"; // Nom d'utilisateur de la base de données
+$password = "root"; // Mot de passe de la base de données26.0.2
+$dbname = "dbcantine"; // Nom de la base de données
+
+$mysqli = new mysqli($servername, $username, $password, $dbname); // Crée d'une nouvelle connexion MySQL
+if ($mysqli->connect_error) { // Vérification de la réussite de la connexion
+    die("Connection failed: " . $conn->connect_error); // Affichage d'un message d'erreur en cas d'échec
+}
+
+if (isset($_GET["nom"])) { // Vérification si un champ de recherche a été soumis
+    // Récupération du nom dans le champ de recherche
+    $nom = $_GET['nom'];
+
+    // Requête SQL pour récupérer les enregistrements correspondants
+    $sql = "SELECT * FROM eleves WHERE nom LIKE '%" . $nom . "%'"; // Requête SQL pour sélectionner tous les élèves dont le nom contient la chaîne de caractères dans le champ de recherche
+    $result = $mysqli->query($sql); // Exécution de la requête
+
+    echo '<h2 style="font-size: 30px;"  class="text-center my-4">Recherche par nom</h2>'; // Affichage d'un titre pour les résultats de recherche
+
+    // Affiche les résultats
+    if ($result->num_rows > 0) { // Vérifie s'il y a des résultats trouvée
+        echo '<table class="table table-striped">'; // Crée un tableau HTML avec les résultats
+        echo '<thead><tr><th>Nom</th><th>Prénom</th><th>Réservation</th><th>Classe</th><th>Photo</th></tr></thead>';
+        echo '<tbody>';
+        while ($row = $result->fetch_assoc()) { // Boucle sur les résultats de la requête
+            echo '<tr>';
+            echo '<td>' . $row['nom'] . '</td>'; // Affiche le nom de l'élève
+            echo '<td>' . $row['prenom'] . '</td>'; // Affiche le prénom de l'élève
+            echo '<td>' . ($row['reservation'] ? 'Oui' : 'Non') . '</td>'; // Affiche la réservation de l'élève (sous forme de chaîne de caractères)
+            echo '<td>' . $row['classe'] . '</td>'; // Affiche la classe de l'élève
+            echo '<td><img src="' . $row['chemin_photo'] . '" alt="Photo de l\'élève" width="100"></td>'; // Affiche la photo de l'élève
+            echo '<td><form action="delete.php" method="post"><input type="hidden" name="id" value="' . $row['id'] . '"><button type="submit" class="btn btn-danger">Supprimer</button></form></td>'; // Création d'un formulaire pour supprimer l'élève
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+    } else {
+        echo '<div class="alert alert-warning">Aucun élèves trouvé.</div>';
+}
+}
+
+// Fermeture de la connexion à la base de données
+$mysqli->close(); // Fermeture de la connexion à la base de données
+?>

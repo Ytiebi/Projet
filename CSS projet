@@ -1,0 +1,85 @@
+body{
+ background: url(media/Self-cantine-scolaire.jpeg);
+ 
+    background-size: contain;
+    background-attachment: fixed;    
+    font-family: system-ui;
+}
+#container{
+ width:400px;
+ margin:0 auto;
+ margin-top:10%;
+}
+
+form {
+ width:100%;
+ padding: 30px;
+ border: 10px solid #f1f1f1;
+ background: #fff;
+ box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+ border-radius: 30px;
+}
+#container h1{
+    display: flex;
+justify-content: center;
+ width: 38%;
+ margin: 0 auto;
+ padding-bottom: 10px;
+}
+
+
+input[type=text], input[type=password] {
+ width: 100%;
+ padding: 12px 20px;
+ margin: 10px 0;
+ display: inline-block;
+ border: 1px solid rgb(12, 7, 7);
+ box-sizing: border-box;
+}
+
+/*  style des boutons */
+input[type=submit] {
+ background: #b47f39;
+ background-color:#b47f39;
+ color: white;
+ transform: skewX(-15deg);
+font-size: 1em;
+font-weight:bold;
+border:0;
+width: 100%;
+padding:10px 40px;
+cursor:pointer;
+
+}
+input[type=submit]:hover {
+ background-color: white;
+ color: #b47f39;
+ border: 1px solid #b47f39;
+ 
+}
+
+
+input[type=button] {
+    background: #b47f39;
+    background-color:#b47f39;
+    color: white;
+    transform: skewX(-15deg);
+   font-size: 1em;
+   font-weight:bold;
+   border:0;
+   width: 30%;
+   padding:10px 40px;
+   margin: auto;
+  position: absolute;
+  top: 60%;left: 35%;
+   
+  
+}
+input[type=button]:hover {
+    background-color: white;
+    color: #b47f39;
+    border: 1px solid #b47f39;
+}
+body{
+    background-color: rgb(29, 31, 31);
+}

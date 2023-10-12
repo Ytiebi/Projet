@@ -1,0 +1,25 @@
+Le passage et le contrôle des élèves au self d’une cantine dans un établissement scolaire est souvent difficile à
+gérer. Souvent, le passage est réalisé à l’aide d’une carte, d’un code à rentrer ou d’une empreinte de la main.
+Il est compliqué de respecter les gestes barrières avec soit une carte que les élèves déposent tous au même endroit, soit
+un code que tous les élèves tapent sur le même clavier ou encore l’empreinte de la main insérée dans le même dispositif.
+C’est pourquoi il est demandé d’installer des caméras à l’entrée du self qui vont permettre de faire la
+reconnaissance faciale de l’élève qui passera devant pour lui donner l’accès à son plateau sans avoir à toucher d’objet.
+L’élève devra se présenter, sans masque, devant la caméra. La caméra enverra la photo et elle sera comparée à
+la base de données de l’établissement. Une fois que l’élève sera identifié, le serveur vérifiera s’il est autorisé à passer et
+à avoir un plateau.
+Il sera nécessaire d’installer une caméra devant chaque distributeur de plateau pour visualiser et identifier
+l’élève présent.
+Cette caméra sera reliée au réseau administratif du lycée pour permettre au serveur de gestion du self de récupérer les
+images et de les comparer à celles de la base de données pour avoir l’identité de l’élève.
+Le serveur lira ensuite les informations de l’élève pour savoir s’il a les droits pour avoir son plateau.
+Si tel est le cas, le plateau sera autorisé.
+Une application Android permettra au personnel de la cantine de vérifier la fiche de l’élève qui s’affichera en
+temps réel et également de pouvoir débloquer un plateau dans le cas où un élève n’aurait pas réservé au préalable
+tache à realiser:
+Mettre en forme la demande du client
+- Installer le conteneur Docker.
+- Paramétrer le conteneur Docker.
+- Créer la base de données Mysql du système.
+- Gérer cette base de données Mysql.
+- Coder le site web de gestion de la base de
+données 
